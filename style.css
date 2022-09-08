@@ -1,0 +1,10 @@
+body {
+    text-align: center;
+    margin: 3px;
+}
+textarea {
+    display: block;
+    position: relative;
+    height: 20vh;
+    width: 60vw;
+}
