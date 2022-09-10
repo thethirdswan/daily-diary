@@ -2,9 +2,20 @@ body {
     text-align: center;
     margin: 3px;
 }
+
 textarea {
     display: block;
     position: relative;
     height: 20vh;
     width: 60vw;
+    left: 18vw;
+    margin-bottom: 10px;
+}
+
+section {
+    margin: 10px;
+}
+
+.card-body h2, .card-body h6 {
+    text-align: left;
 }
