@@ -1,12 +1,40 @@
+const tanggal = new Date;
 document.addEventListener("load", dateLoad());
+const diaryKey = "diaryEntry";
+let diaryEntry = "<em>Belum ada apa-apa disini...</em>";
+if (localStorage.getItem(diaryKey) === null) {
+    localStorage.setItem(diaryKey, diaryEntry)
+}
+
+document.addEventListener("load", retrieveEntry());
+document.addEventListener("load", loadEntry());
 
 function entry() {
     const isi = document.getElementById("input").value;
+    if (isi === "") {
+        alert("Kamu belum memasukkan apapun di kolom entri!")
+        return;
+    }
     document.getElementById("unek-unek").innerHTML = isi;
+    insertEntry(isi);
+}
+
+function insertEntry(entry) {
+    localStorage.setItem(diaryKey, entry);
+}
+
+function retrieveEntry() {
+    const entry = localStorage.getItem(diaryKey);
+    if (entry !== null) {
+        diaryEntry = entry;
+    }
+}
+
+function loadEntry() {
+    document.getElementById("unek-unek").innerHTML = diaryEntry;
 }
 
 function dateLoad() {
-    const tanggal = new Date;
     const sentence = tanggal.getDate() + " " + monthObtainer(tanggal.getMonth()) + " " + tanggal.getFullYear();
     document.getElementById("tanggal").innerHTML = sentence;
 }
