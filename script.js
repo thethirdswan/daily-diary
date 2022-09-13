@@ -10,23 +10,42 @@ document.addEventListener("load", retrieveEntry());
 document.addEventListener("load", loadEntry());
 
 function entry() {
+    const pattern = /\n/;
     const isi = document.getElementById("input").value;
     if (isi === "") {
         alert("Kamu belum memasukkan apapun di kolom entri!")
         return;
     }
+    if (pattern.test(isi)) {
+        const isiButEnter = isi.replace("\n", "<br>");
+        document.getElementById("unek-unek").innerHTML = isiButEnter;
+        insertEntry(isiButEnter);
+        document.getElementById("hapus").style.display = "inline";
+        return;
+    }
     document.getElementById("unek-unek").innerHTML = isi;
     insertEntry(isi);
+    document.getElementById("hapus").style.display = "inline";
 }
 
 function insertEntry(entry) {
     localStorage.setItem(diaryKey, entry);
 }
 
+function deleteEntry() {
+    document.getElementById("unek-unek").innerHTML = "<em>Belum ada apa-apa disini...</em>"
+    localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
+    document.getElementById("hapus").style.display = "none";
+    alert("Diary sudah dihapus!");
+}
+
 function retrieveEntry() {
     const entry = localStorage.getItem(diaryKey);
     if (entry !== null) {
         diaryEntry = entry;
+    }
+    if (localStorage.getItem(diaryKey) !== "<em>Belum ada apa-apa disini...</em>") {
+        document.getElementById("hapus").style.display = "inline";
     }
 }
 
