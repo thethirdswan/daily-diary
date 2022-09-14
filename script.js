@@ -1,9 +1,14 @@
 const tanggal = new Date;
-document.addEventListener("load", dateLoad());
 const diaryKey = "diaryEntry";
 let diaryEntry = "<em>Belum ada apa-apa disini...</em>";
+const diaryDateKey = "diaryDate";
+const diaryDate = tanggal.getDate();
+document.addEventListener("load", dateLoad());
 if (localStorage.getItem(diaryKey) === null) {
     localStorage.setItem(diaryKey, diaryEntry)
+}
+if (localStorage.getItem(diaryDateKey) === null) {
+    localStorage.setItem(diaryDateKey, diaryDate)
 }
 
 document.addEventListener("load", retrieveEntry());
@@ -11,21 +16,18 @@ document.addEventListener("load", loadEntry());
 
 function entry() {
     const pattern = /\n/;
-    const isi = document.getElementById("input").value;
+    let isi = document.getElementById("input").value;
     if (isi === "") {
         alert("Kamu belum memasukkan apapun di kolom entri!")
         return;
     }
-    if (pattern.test(isi)) {
-        const isiButEnter = isi.replace("\n", "<br>");
-        document.getElementById("unek-unek").innerHTML = isiButEnter;
-        insertEntry(isiButEnter);
-        document.getElementById("hapus").style.display = "inline";
-        return;
-    }
+    do {
+        isi = isi.replace("\n", "<br>");
+    } while (pattern.test(isi));
     document.getElementById("unek-unek").innerHTML = isi;
     insertEntry(isi);
     document.getElementById("hapus").style.display = "inline";
+    localStorage.setItem(diaryDateKey, diaryDate);
 }
 
 function insertEntry(entry) {
@@ -56,6 +58,9 @@ function loadEntry() {
 function dateLoad() {
     const sentence = tanggal.getDate() + " " + monthObtainer(tanggal.getMonth()) + " " + tanggal.getFullYear();
     document.getElementById("tanggal").innerHTML = sentence;
+    if (diaryDate > localStorage.getItem(diaryDateKey) || diaryDate < localStorage.getItem(diaryDateKey)) {
+        deleteEntry()
+    }
 }
 
 function monthObtainer(month) {
