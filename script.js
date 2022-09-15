@@ -3,7 +3,6 @@ const diaryKey = "diaryEntry";
 let diaryEntry = "<em>Belum ada apa-apa disini...</em>";
 const diaryDateKey = "diaryDate";
 const diaryDate = tanggal.getDate();
-document.addEventListener("load", dateLoad());
 if (localStorage.getItem(diaryKey) === null) {
     localStorage.setItem(diaryKey, diaryEntry)
 }
@@ -11,6 +10,7 @@ if (localStorage.getItem(diaryDateKey) === null) {
     localStorage.setItem(diaryDateKey, diaryDate)
 }
 
+document.addEventListener("load", dateLoad());
 document.addEventListener("load", retrieveEntry());
 document.addEventListener("load", loadEntry());
 
@@ -27,7 +27,6 @@ function entry() {
     document.getElementById("unek-unek").innerHTML = isi;
     insertEntry(isi);
     document.getElementById("hapus").style.display = "inline";
-    localStorage.setItem(diaryDateKey, diaryDate);
 }
 
 function insertEntry(entry) {
@@ -58,9 +57,10 @@ function loadEntry() {
 function dateLoad() {
     const sentence = tanggal.getDate() + " " + monthObtainer(tanggal.getMonth()) + " " + tanggal.getFullYear();
     document.getElementById("tanggal").innerHTML = sentence;
-    if (diaryDate > localStorage.getItem(diaryDateKey) || diaryDate < localStorage.getItem(diaryDateKey)) {
+    if (diaryDate > localStorage.getItem(diaryDateKey) || diaryDate < localStorage.getItem(diaryDateKey) && localStorage.getItem(diaryKey) !== "<em>Belum ada apa-apa disini...</em>") {
         deleteEntry()
     }
+    localStorage.setItem(diaryDateKey, diaryDate)
 }
 
 function monthObtainer(month) {
