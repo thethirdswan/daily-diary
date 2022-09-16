@@ -27,17 +27,28 @@ function entry() {
     document.getElementById("unek-unek").innerHTML = isi;
     insertEntry(isi);
     document.getElementById("hapus").style.display = "inline";
+    document.getElementById("input").value = ""
 }
 
 function insertEntry(entry) {
     localStorage.setItem(diaryKey, entry);
 }
 
-function deleteEntry() {
-    document.getElementById("unek-unek").innerHTML = "<em>Belum ada apa-apa disini...</em>"
-    localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
-    document.getElementById("hapus").style.display = "none";
-    alert("Diary sudah dihapus!");
+function deleteEntry(option) {
+    if (option == "manual") {
+        if (confirm("Apakah anda benar-benar ingin menghapus entri sekarang?")) {
+            document.getElementById("unek-unek").innerHTML = "<em>Belum ada apa-apa disini...</em>"
+            localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
+            document.getElementById("hapus").style.display = "none";
+            alert("Diary sudah dihapus!");
+        }
+    }
+    if (option == "auto") {
+        document.getElementById("unek-unek").innerHTML = "<em>Belum ada apa-apa disini...</em>"
+        localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
+        document.getElementById("hapus").style.display = "none";
+        alert("Diary sudah reset!");
+    }
 }
 
 function retrieveEntry() {
@@ -58,7 +69,7 @@ function dateLoad() {
     const sentence = tanggal.getDate() + " " + monthObtainer(tanggal.getMonth()) + " " + tanggal.getFullYear();
     document.getElementById("tanggal").innerHTML = sentence;
     if (diaryDate > localStorage.getItem(diaryDateKey) || diaryDate < localStorage.getItem(diaryDateKey) && localStorage.getItem(diaryKey) !== "<em>Belum ada apa-apa disini...</em>") {
-        deleteEntry()
+        deleteEntry('auto')
     }
     localStorage.setItem(diaryDateKey, diaryDate)
 }
