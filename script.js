@@ -66,7 +66,6 @@ function deleteEntry(option) {
         localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
         document.getElementById("hapus").style.display = "none";
         diaryAlert("Diary sudah direset!");
-        setTimeout(10000, )
     }
 }
 
