@@ -1,5 +1,6 @@
 const tanggal = new Date;
 const liveAlert = document.getElementById("diaryAlert");
+let activeAlert;
 const diaryKey = "diaryEntry";
 let diaryEntry = "<em>Belum ada apa-apa disini...</em>";
 const diaryDateKey = "diaryDate";
@@ -25,8 +26,12 @@ const diaryAlert = (message) => {
     ].join('')
 
     liveAlert.append(wrapper);
+    activeAlert = new bootstrap.Alert(wrapper);
 }
 
+function alertClose() {
+    activeAlert.close();
+}
 
 document.addEventListener("load", dateLoad());
 document.addEventListener("load", retrieveEntry());
@@ -59,6 +64,7 @@ function deleteEntry(option) {
             localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
             document.getElementById("hapus").style.display = "none";
             diaryAlert("Diary sudah dihapus!");
+            setTimeout(alertClose(), 10000)
         }
     }
     if (option == "auto") {
@@ -66,6 +72,7 @@ function deleteEntry(option) {
         localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
         document.getElementById("hapus").style.display = "none";
         diaryAlert("Diary sudah direset!");
+        setTimeout(alertClose(), 10000)
     }
 }
 
