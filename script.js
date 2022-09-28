@@ -29,10 +29,6 @@ const diaryAlert = (message) => {
     activeAlert = new bootstrap.Alert(wrapper);
 }
 
-function alertClose() {
-    activeAlert.close();
-}
-
 document.addEventListener("load", dateLoad());
 document.addEventListener("load", retrieveEntry());
 document.addEventListener("load", loadEntry());
@@ -64,7 +60,6 @@ function deleteEntry(option) {
             localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
             document.getElementById("hapus").style.display = "none";
             diaryAlert("Diary sudah dihapus!");
-            setTimeout(alertClose(), 10000)
         }
     }
     if (option == "auto") {
@@ -72,7 +67,6 @@ function deleteEntry(option) {
         localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
         document.getElementById("hapus").style.display = "none";
         diaryAlert("Diary sudah direset!");
-        setTimeout(alertClose(), 10000)
     }
 }
 
