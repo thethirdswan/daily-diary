@@ -34,15 +34,26 @@ document.addEventListener("load", retrieveEntry());
 document.addEventListener("load", loadEntry());
 
 function entry() {
-    const pattern = /\n/;
+    const newLinePattern = /\n/;
+    const boldPattern = /__/;
+    let counter = 0;
     let isi = document.getElementById("input").value;
     if (isi === "") {
         alert("Kamu belum memasukkan apapun di kolom entri!")
         return;
     }
-    do {
+    while (newLinePattern.test(isi)) {
         isi = isi.replace("\n", "<br>");
-    } while (pattern.test(isi));
+    }
+    while (boldPattern.test(isi)) {
+        counter++;
+        if (counter % 2 != 0) {
+            isi = isi.replace("__", "<strong>");
+        } else if (counter % 2 == 0) {
+            isi = isi.replace("__", "</strong>")
+        }
+    }
+    counter = 0;
     document.getElementById("unek-unek").innerHTML = isi;
     insertEntry(isi);
     document.getElementById("hapus").style.display = "inline";
