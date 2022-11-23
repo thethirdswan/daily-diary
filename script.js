@@ -5,11 +5,16 @@ const diaryKey = "diaryEntry";
 let diaryEntry = "<em>Belum ada apa-apa disini...</em>";
 const diaryDateKey = "diaryDate";
 const diaryDate = tanggal.getDate();
+const idwtsmeKey = "I.D.W.T.S.M.E."
+let idwtsmeMode;
 if (localStorage.getItem(diaryKey) === null) {
     localStorage.setItem(diaryKey, diaryEntry)
 }
 if (localStorage.getItem(diaryDateKey) === null) {
     localStorage.setItem(diaryDateKey, diaryDate)
+}
+if (localStorage.getItem(idwtsmeKey) === null) {
+    localStorage.setItem(idwtsmeKey, idwtsmeMode)
 }
 
 const diaryAlert = (message) => {
@@ -146,4 +151,18 @@ let monthWord;
             break;
     }
     return monthWord;
+}
+
+function whiteMode() {
+    const input = document.getElementById("input");
+    const button = document.getElementById("whiteMode");
+    if (input.style.color === "black") {
+        input.style.color = "white";
+        button.innerText = "I.W.T.S.M.E."
+        localStorage.setItem(idwtsmeKey, "true")
+    } else {
+        input.style.color = "black";
+        button.innerText = "I.D.W.T.S.M.E."
+        localStorage.setItem(idwtsmeKey, "false")
+    }
 }
