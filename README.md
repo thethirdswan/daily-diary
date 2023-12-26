@@ -1,2 +1,5 @@
 # Daily Diary
-Website untuk mengeluarkan keluh kesahmu tiap hari.
+## English :
+A website to pour out your daily thoughts. English page coming soon!
+## Indonesia :
+Sebuah website untuk mengeluarkan keluh-kesahmu.
