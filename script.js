@@ -2,7 +2,7 @@ const tanggal = new Date;
 const liveAlert = document.getElementById("diaryAlert");
 let activeAlert;
 const diaryKey = "diaryEntry";
-let diaryEntry;
+let diaryEntry = ""
 const diaryDateKey = "diaryDate";
 const diaryDate = tanggal.getDate();
 const languageKey = "language";
@@ -14,14 +14,25 @@ if (localStorage.getItem(languageKey) === null) {
 function loadLanguage() {
     switch (localStorage.getItem(languageKey)) {
         case "id":
-            diaryEntry = "<em>Belum ada apa-apa disini...</em>"
             window.location.replace("/lang/id.html")
             break;
         default:
-            diaryEntry = "<em>There's nothing here yet...</em>"
             window.location.replace("/lang/en.html");
     }
 }
+
+const switcher = document.getElementById("switcher");
+
+switcher.addEventListener("click", languageSwitch);
+
+function languageSwitch() {
+    if (localStorage.getItem(languageKey) == 'id') {
+        localStorage.setItem(languageKey, "en-US")
+    } else {
+        localStorage.setItem(languageKey, 'id')
+    }
+}
+
 if (localStorage.getItem(diaryKey) === null) {
     localStorage.setItem(diaryKey, diaryEntry)
 }
@@ -57,7 +68,7 @@ function entry() {
     let counter = 0;
     let isi = document.getElementById("input").value;
     if (isi === "") {
-        if (languageKey == "id") {
+        if (localStorage.getItem(languageKey) == "id") {
             alert("Kamu belum memasukkan apapun di kolom entri!")
         } else {
             alert("You haven't entered anything yet!")
@@ -88,7 +99,7 @@ function insertEntry(entry) {
 
 function deleteEntry(option) {
     if (option == "manual") {
-        if (languageKey == "id") {
+        if (localStorage.getItem(languageKey) == "id") {
             if (confirm("Apakah anda benar-benar ingin menghapus entri sekarang?")) {
                 document.getElementById("unek-unek").innerHTML = "<em>Belum ada apa-apa disini...</em>"
                 localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
@@ -105,7 +116,7 @@ function deleteEntry(option) {
         }
     }
     if (option == "auto") {
-        if (languageKey == "id") {
+        if (localStorage.getItem(languageKey) == "id") {
             document.getElementById("unek-unek").innerHTML = "<em>Belum ada apa-apa disini...</em>"
             localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
             document.getElementById("hapus").style.display = "none";
@@ -137,8 +148,14 @@ function loadEntry() {
 function dateLoad() {
     const sentence = tanggal.getDate() + " " + monthObtainer(tanggal.getMonth()) + " " + tanggal.getFullYear();
     document.getElementById("tanggal").innerHTML = sentence;
-    if (diaryDate > localStorage.getItem(diaryDateKey) || diaryDate < localStorage.getItem(diaryDateKey) && localStorage.getItem(diaryKey) !== "<em>Belum ada apa-apa disini...</em>" || "<em>There's nothing here yet...</em>") {
-        deleteEntry('auto')
+    if (localStorage.getItem(languageKey == "id")) {
+        if (diaryDate != localStorage.getItem(diaryDateKey) && localStorage.getItem(diaryKey) !== "<em>Belum ada apa-apa disini...</em>") {
+            deleteEntry('auto')
+        }
+    } else {
+        if (diaryDate != localStorage.getItem(diaryDateKey) && localStorage.getItem(diaryKey) !== "<em>There's nothing here yet...</em>") {
+            deleteEntry('auto')
+        }
     }
     localStorage.setItem(diaryDateKey, diaryDate)
 }
