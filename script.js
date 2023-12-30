@@ -162,7 +162,7 @@ function dateLoad() {
 
 function monthObtainer(month) {
 let monthWord;
-if (languageKey == "id") {
+if (localStorage.getItem(languageKey) == "id") {
     switch (month) {
         case 0:
             monthWord = "Januari";
