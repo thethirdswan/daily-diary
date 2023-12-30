@@ -14,10 +14,10 @@ if (localStorage.getItem(languageKey) === null) {
 function loadLanguage() {
     switch (localStorage.getItem(languageKey)) {
         case "id":
-            window.location.replace("/lang/id.html")
+            window.location.replace("/daily-diary/lang/id.html")
             break;
         default:
-            window.location.replace("/lang/en.html");
+            window.location.replace("/daily-diary/lang/en.html");
     }
 }
 
