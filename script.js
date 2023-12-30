@@ -2,19 +2,32 @@ const tanggal = new Date;
 const liveAlert = document.getElementById("diaryAlert");
 let activeAlert;
 const diaryKey = "diaryEntry";
-let diaryEntry = "<em>Belum ada apa-apa disini...</em>";
+let diaryEntry;
 const diaryDateKey = "diaryDate";
 const diaryDate = tanggal.getDate();
-const idwtsmeKey = "I.D.W.T.S.M.E."
-let idwtsmeMode;
+const languageKey = "language";
+let languageSetting = navigator.language;
+if (localStorage.getItem(languageKey) === null) {
+    localStorage.setItem(languageKey, languageSetting);
+}
+
+function loadLanguage() {
+    switch (localStorage.getItem(languageKey)) {
+        case "id":
+            diaryEntry = "<em>Belum ada apa-apa disini...</em>"
+            window.location.replace("/lang/id.html")
+            break;
+        default:
+            diaryEntry = "<em>There's nothing here yet...</em>"
+            window.location.replace("/lang/en.html");
+    }
+}
 if (localStorage.getItem(diaryKey) === null) {
     localStorage.setItem(diaryKey, diaryEntry)
 }
+
 if (localStorage.getItem(diaryDateKey) === null) {
     localStorage.setItem(diaryDateKey, diaryDate)
-}
-if (localStorage.getItem(idwtsmeKey) === null) {
-    localStorage.setItem(idwtsmeKey, idwtsmeMode)
 }
 
 const diaryAlert = (message) => {
@@ -44,7 +57,11 @@ function entry() {
     let counter = 0;
     let isi = document.getElementById("input").value;
     if (isi === "") {
-        alert("Kamu belum memasukkan apapun di kolom entri!")
+        if (languageKey == "id") {
+            alert("Kamu belum memasukkan apapun di kolom entri!")
+        } else {
+            alert("You haven't entered anything yet!")
+        }
         return;
     }
     while (newLinePattern.test(isi)) {
@@ -71,18 +88,34 @@ function insertEntry(entry) {
 
 function deleteEntry(option) {
     if (option == "manual") {
-        if (confirm("Apakah anda benar-benar ingin menghapus entri sekarang?")) {
-            document.getElementById("unek-unek").innerHTML = "<em>Belum ada apa-apa disini...</em>"
-            localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
-            document.getElementById("hapus").style.display = "none";
-            diaryAlert("Diary sudah dihapus!");
+        if (languageKey == "id") {
+            if (confirm("Apakah anda benar-benar ingin menghapus entri sekarang?")) {
+                document.getElementById("unek-unek").innerHTML = "<em>Belum ada apa-apa disini...</em>"
+                localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
+                document.getElementById("hapus").style.display = "none";
+                diaryAlert("Diary sudah dihapus!");
+            }
+        } else {
+            if (confirm("Are you sure to delete your current entry?")) {
+                document.getElementById("unek-unek").innerHTML = "<em>There's nothing here yet...</em>"
+                localStorage.setItem(diaryKey, "<em>There's nothing here yet...</em>");
+                document.getElementById("hapus").style.display = "none";
+                diaryAlert("Diary has been deleted!");
+            }
         }
     }
     if (option == "auto") {
-        document.getElementById("unek-unek").innerHTML = "<em>Belum ada apa-apa disini...</em>"
-        localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
-        document.getElementById("hapus").style.display = "none";
-        diaryAlert("Diary sudah direset!");
+        if (languageKey == "id") {
+            document.getElementById("unek-unek").innerHTML = "<em>Belum ada apa-apa disini...</em>"
+            localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>");
+            document.getElementById("hapus").style.display = "none";
+            diaryAlert("Diary sudah direset!");
+        } else {
+            document.getElementById("unek-unek").innerHTML = "<em>There's nothing here yet...</em>"
+            localStorage.setItem(diaryKey, "<em>There's nothing here yet...</em>");
+            document.getElementById("hapus").style.display = "none";
+            diaryAlert("Diary have been reset!");
+        }
     }
 }
 
@@ -91,7 +124,7 @@ function retrieveEntry() {
     if (entry !== null) {
         diaryEntry = entry;
     }
-    if (localStorage.getItem(diaryKey) !== "<em>Belum ada apa-apa disini...</em>") {
+    if (localStorage.getItem(diaryKey) !== "<em>Belum ada apa-apa disini...</em>" || "<em>There's nothing here yet...</em>") {
         document.getElementById("hapus").style.display = "inline";
     }
 }
@@ -104,7 +137,7 @@ function loadEntry() {
 function dateLoad() {
     const sentence = tanggal.getDate() + " " + monthObtainer(tanggal.getMonth()) + " " + tanggal.getFullYear();
     document.getElementById("tanggal").innerHTML = sentence;
-    if (diaryDate > localStorage.getItem(diaryDateKey) || diaryDate < localStorage.getItem(diaryDateKey) && localStorage.getItem(diaryKey) !== "<em>Belum ada apa-apa disini...</em>") {
+    if (diaryDate > localStorage.getItem(diaryDateKey) || diaryDate < localStorage.getItem(diaryDateKey) && localStorage.getItem(diaryKey) !== "<em>Belum ada apa-apa disini...</em>" || "<em>There's nothing here yet...</em>") {
         deleteEntry('auto')
     }
     localStorage.setItem(diaryDateKey, diaryDate)
@@ -112,6 +145,7 @@ function dateLoad() {
 
 function monthObtainer(month) {
 let monthWord;
+if (languageKey == "id") {
     switch (month) {
         case 0:
             monthWord = "Januari";
@@ -149,20 +183,46 @@ let monthWord;
         case 11:
             monthWord = "Desember";
             break;
+        }
+    } else {
+    switch (month) {
+        case 0:
+            monthWord = "January";
+            break;
+        case 1:
+            monthWord = "February";
+            break;
+        case 2:
+            monthWord = "March";
+            break;
+        case 3:
+            monthWord = "April";
+            break;
+        case 4:
+            monthWord = "May";
+            break;
+        case 5:
+            monthWord = "June";
+            break;
+        case 6:
+            monthWord = "July";
+            break;
+        case 7:
+            monthWord = "August";
+            break;
+        case 8:
+            monthWord = "September";
+            break;
+        case 9:
+            monthWord = "October";
+            break;
+        case 10:
+            monthWord = "November";
+            break;
+        case 11:
+            monthWord = "December";
+            break;
+        }
     }
     return monthWord;
-}
-
-function whiteMode() {
-    const input = document.getElementById("input");
-    const button = document.getElementById("whiteMode");
-    if (input.style.color === "black") {
-        input.style.color = "white";
-        button.innerText = "I.W.T.S.M.E."
-        localStorage.setItem(idwtsmeKey, "true")
-    } else {
-        input.style.color = "black";
-        button.innerText = "I.D.W.T.S.M.E."
-        localStorage.setItem(idwtsmeKey, "false")
-    }
 }

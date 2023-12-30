@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
     <head>
         <title>Daily Diary</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="pictures/favicon.ico" type="image/x-icon">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-        <link href="style.css" rel="stylesheet">
+        <link href="/style.css" rel="stylesheet">
     </head>
     <body>
         <header>
             <h1>Daily Diary</h1>
-            <p>Website untuk mengeluarkan keluh kesah tiap hari.</p>
+            <p>The website to pour out your daily thoughts.</p>
             <div class="dropdown">
-                <button class="btn btn-secondary btn-sm dropdown-toggle langToggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Bahasa</button>
+                <button class="btn btn-secondary btn-sm dropdown-toggle langToggle float-end" type="button" data-bs-toggle="dropdown" aria-expanded="false">Language</button>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="/lang/id.html">Indonesia</a></li>
                     <li><a class="dropdown-item" href="/lang/en.html">English</a></li>
@@ -23,26 +23,22 @@
 
         </div>
         <section id="masukan">
-            <textarea id="input" placeholder="Apa masalahmu hari ini?" style="color: black;"></textarea>
-            <button id="entryButton" type="button" class="btn btn-secondary" onclick="entry()">Masukkan ke diary</button>
+            <textarea id="input" placeholder="What's in your mind?" style="color: black;"></textarea>
+            <button id="entryButton" type="button" class="btn btn-secondary" onclick="entry()">Enter diary entry</button>
         </section>
         <section id="entri">
             <div id="isi-entri" class="card">
                 <div class="card-body">
-                    <h2>Diary hari ini</h2>
-                    <h6 id="tanggal">[tanggal hari ini]</h6>
-                    <p id="unek-unek"><em>Belum ada apa-apa disini...</em></p>
-                    <button type="button" id="hapus" class="btn btn-danger" onclick="deleteEntry('manual')">Hapus Diary</button>
+                    <h2>Today's Diary</h2>
+                    <h6 id="tanggal">[today's date]</h6>
+                    <p id="unek-unek"><em>There's nothing here yet...</em></p>
+                    <button type="button" id="hapus" class="btn btn-danger" onclick="deleteEntry('manual')">Delete Diary</button>
                 </div>
             </div>
         </section>
-        <a href="https://thethirdswan.github.io">Kembali ke website inti</a>
+        <a href="https://thethirdswan.github.io">Back to the main website</a>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
         <script src="script.js"></script>
-        <script>
-            loadLanguage();
-        </script>
     </body>
 </html>
