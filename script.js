@@ -137,19 +137,25 @@ function retrieveEntry() {
             if (entry == "<em>There's nothing here yet...</em>") {
                 localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>")
             }
+            if (entry !== null) {
+                diaryEntry = entry;
+            }
+            if (localStorage.getItem(diaryKey) !== "<em>Belum ada apa-apa disini...</em>") {
+                document.getElementById("hapus").style.display = "inline";
+            }
             break;
         default:
             if (entry == "<em>Belum ada apa-apa disini...</em>") {
                 localStorage.setItem(diaryKey, "<em>There's nothing here yet...</em>")
             }
+            if (entry !== null) {
+                diaryEntry = entry;
+            }
+            if (localStorage.getItem(diaryKey) !== "<em>There's nothing here yet...</em>") {
+                document.getElementById("hapus").style.display = "inline";
+            }
         }
-    if (entry !== null) {
-        diaryEntry = entry;
     }
-    if (localStorage.getItem(diaryKey) !== "<em>Belum ada apa-apa disini...</em>" || "<em>There's nothing here yet...</em>") {
-        document.getElementById("hapus").style.display = "inline";
-    }
-}
 
 function loadEntry() {
     document.getElementById("unek-unek").innerHTML = diaryEntry;
