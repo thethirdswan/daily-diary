@@ -135,12 +135,12 @@ function retrieveEntry() {
     switch (localStorage.getItem(languageKey)) {
         case "id":
             if (entry == "<em>There's nothing here yet...</em>") {
-                localStorage.setItem(languageKey, "<em>Belum ada apa-apa disini...</em>")
+                localStorage.setItem(diaryKey, "<em>Belum ada apa-apa disini...</em>")
             }
             break;
         default:
             if (entry == "<em>Belum ada apa-apa disini...</em>") {
-                localStorage.setItem(languageKey, "<em>There's nothing here yet...</em>")
+                localStorage.setItem(diaryKey, "<em>There's nothing here yet...</em>")
             }
         }
     if (entry !== null) {
